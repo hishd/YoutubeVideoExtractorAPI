@@ -65,14 +65,18 @@ class YouTubeDownloader {
         $video_data_map = array(); 
         $videoData = array();
         foreach($streamingDataFormats as $stream){ 
-            $videoData["title"] = $this->video_title;
-            $videoData["quality"] = $stream["quality"];
-            $videoData["qualityLabel"] = $stream["qualityLabel"];
-            $videoData["url"] = $stream["url"];
+            if(!$this->video_title === NULL)
+                $videoData["title"] = $this->video_title;
+            if (array_key_exists("quality",$stream))
+                $videoData["quality"] = $stream["quality"];
+            if (array_key_exists("qualityLabel",$stream))
+                $videoData["qualityLabel"] = $stream["qualityLabel"];
+            if (array_key_exists("url",$stream))
+                $videoData["url"] = $stream["url"];
             $video_data_map [] = $videoData;
         } 
         return $video_data_map; 
-    } 
+    }  
     
     //Checks whether the provided URL is from a valid video
     public function hasVideo(){ 
